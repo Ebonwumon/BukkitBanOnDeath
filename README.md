@@ -25,7 +25,7 @@ ban-message: This server is for winners!
 
 | Key | Description |
 |----- | -----------|
-| banned-metadata-key: bod-banned | This is the key that's used with the internal player metadata API. Using a less common key will yield higher efficiency |
+| banned-metadata-key | This is the key that's used with the internal player metadata API. Using a less common key will yield higher efficiency |
 | ban-length | The length of the bans performed, in seconds |
 | ban-message | The message that is sent to players when they are banned |
 
