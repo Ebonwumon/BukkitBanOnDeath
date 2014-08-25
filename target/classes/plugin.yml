@@ -1,0 +1,8 @@
+name: BukkitBOD
+main: net.depotwarehouse.bukkitbod.BukkitBOD
+version: 0.1
+
+commands:
+    bantotal:
+        description: Get the number of banned players who are currently online
+        usage: /banTotal
