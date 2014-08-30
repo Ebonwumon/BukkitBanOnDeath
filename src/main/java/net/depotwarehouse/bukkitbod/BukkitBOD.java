@@ -1,5 +1,6 @@
 package net.depotwarehouse.bukkitbod;
 
+import net.depotwarehouse.bukkitbod.Exceptions.PlayerNotFoundException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -35,6 +36,16 @@ public final class BukkitBOD extends JavaPlugin implements Listener {
             sender.sendMessage("Current ban total: " + server.banTotal());
             return false;
         }
+
+        if (command.getName().equalsIgnoreCase("unbod")) {
+            try {
+                server.unban(args[0]);
+            } catch (PlayerNotFoundException exception) {
+                sender.sendMessage("Could not find player " + args[0]);
+            }
+            sender.sendMessage("Successfully unbanned " + args[0]);
+            return false;
+        }
         return false;
     }
 
@@ -51,9 +62,10 @@ public final class BukkitBOD extends JavaPlugin implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
+        player.getInventory().clear(); // explicitly clear inventory since we don't seem to be doing that properly
         server.ban(event.getEntity());
         getLogger().info("Banned " + player.getName());
     }

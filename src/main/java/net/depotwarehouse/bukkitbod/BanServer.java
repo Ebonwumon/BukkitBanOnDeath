@@ -1,5 +1,6 @@
 package net.depotwarehouse.bukkitbod;
 
+import net.depotwarehouse.bukkitbod.Exceptions.PlayerNotFoundException;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
@@ -39,7 +40,7 @@ public class BanServer {
                     long nowStamp = new Date().getTime();
 
                     if (nowStamp > timeStamp) {
-                        player.removeMetadata(this.BANNED_METADATA_KEY, this.context);
+                        unban(player);
                         return 0;
                     } else {
                         return timeStamp;
@@ -48,6 +49,18 @@ public class BanServer {
             }
         }
         return 0;
+    }
+
+    public void unban(String playerName) throws PlayerNotFoundException {
+        Player player = this.context.getServer().getPlayer("playerName");
+        if (player == null) {
+            throw new PlayerNotFoundException("Could not find player " + playerName);
+        }
+        unban(player);
+    }
+
+    public void unban(Player player) {
+        player.removeMetadata(this.BANNED_METADATA_KEY, this.context);
     }
 
     public void ban(Player player) {

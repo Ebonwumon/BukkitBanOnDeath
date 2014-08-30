@@ -6,3 +6,18 @@ commands:
     bantotal:
         description: Get the number of banned players who are currently online
         usage: /banTotal
+    unbod:
+        description: Unbans a particular player by username
+        usage: /unbod [player]
+        permission: bukkitbod.unbod
+        permission-message: You don't have permission to unban players.
+
+permissions:
+    bukkitbod.*:
+        description: Gives access to all bukkitbod commands
+        children:
+            bukkitbod.unbod: true
+
+    bukkitbod.unbod:
+        description: Allows unbanning of players
+        default: op
